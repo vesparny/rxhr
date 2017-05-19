@@ -56,8 +56,55 @@ const req$ = rxhr({
 
 // abort request
 req$.unsubscribe()
+```
 
+It's easy to combine with rxjs
 
+```js
+const req$ = rxhr({
+  method: 'get',
+  responseType: 'json',
+  url: 'https://jsonplaceholder.typicode.com/posts'
+})
+
+const sub$ = Rx.Observable
+.timer(0, 1000)
+.switchMap(() => Rx.Observable.from(req$))
+.map(res => res.json())
+.subscribe(
+  res => console.log(res.length),
+  err => console.log('err', err),
+  () => console.log('completed')
+)
+```
+
+It supports blob request type
+
+```js
+const req$ = rxhr({
+  method: 'get',
+  responseType: 'blob',
+  url: 'https://avatars2.githubusercontent.com/u/82070?v=3&s=460'
+})
+
+const sub$ = Rx.Observable
+.timer(0, 1000)
+.take(3)
+.switchMap(() => Rx.Observable.from(req$))
+.map(res => res.blob())
+.subscribe(
+  blob => {
+    const fr = new FileReader();
+    fr.onload = function(e) {
+      const img = new Image(); // width, height values are optional params
+      img.src = e.target.result
+      document.body.appendChild(img)
+    }
+    fr.readAsDataURL(blob);
+  },
+  err => console.log('err', err),
+  () => console.log('completed')
+)
 ```
 
 ## Tests
