@@ -1,10 +1,14 @@
 import $$observable from 'symbol-observable'
 
-const encodeParams = params => Object.keys(params).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k])).join('&')
+const encodeParams = params =>
+  Object.keys(params)
+    .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&')
 
-const buildUrl = (url, params) => params ? url + '?' + encodeParams(params) : url
+const buildUrl = (url, params) =>
+  params ? url + '?' + encodeParams(params) : url
 
-const fromResponseHeaderString = (headersString) => {
+const fromResponseHeaderString = headersString => {
   const headers = {}
   headersString.split('\n').forEach(line => {
     const index = line.indexOf(':')
@@ -28,18 +32,23 @@ const rxhr = options => {
         }
       }
       try {
-        const buildResponse = (err) => {
-          const body = err || (!options.responseType || options.responseType === 'text' ? request.responseText : request.response)
+        const buildResponse = err => {
+          const body =
+            err ||
+            (!options.responseType || options.responseType === 'text'
+              ? request.responseText
+              : request.response)
           let response = {
-          // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
+            // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
             status: request.status === 1223 ? 204 : request.status,
             ok: request.status >= 200 && request.status < 300,
             type: err ? 'error' : 'default',
-            statusText: err ? request.statusText : (request.statusText || 'OK'),
+            statusText: err ? request.statusText : request.statusText || 'OK',
             headers: fromResponseHeaderString(request.getAllResponseHeaders()),
             url: request.responseURL,
-            text: () => typeof body === 'object' ? JSON.stringify(body) : body,
-            json: () => typeof body === 'string' ? JSON.parse(body) : body,
+            text: () =>
+              typeof body === 'object' ? JSON.stringify(body) : body,
+            json: () => (typeof body === 'string' ? JSON.parse(body) : body),
             blob: () => new Blob([body])
           }
           return response
@@ -64,14 +73,17 @@ const rxhr = options => {
           observer.error(response)
         }
 
-        request.open(options.method.toUpperCase(), buildUrl(options.url, options.params))
-      // response type
+        request.open(
+          options.method.toUpperCase(),
+          buildUrl(options.url, options.params)
+        )
+        // response type
         options.responseType && (request.responseType = options.responseType)
-      // with credentials
+        // with credentials
         request.withCredentials = options.withCredentials === true
-      // headers
-        for (let i in options.headers) request.setRequestHeader(i, options.headers[i])
-      // timeout in ms
+        // headers
+        for (let i in options.headers) { request.setRequestHeader(i, options.headers[i]) }
+        // timeout in ms
         request.timeout = options.timeout
 
         request.send(options.body || null)

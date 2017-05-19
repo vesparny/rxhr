@@ -8,6 +8,7 @@
   "main": "dist/rxhr.cjs.js",
   "umd:main": "dist/rxhr.umd.js",
   "scripts": {
+    "precommit": "lint-staged",
     "bump": "standard-version",
     "testonly": "jest --coverage",
     "lint": "standard",
@@ -59,6 +60,8 @@
     "standard-version": "^4.0.0"
   },
   "dependencies": {
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.2",
     "symbol-observable": "^1.0.4"
   },
   "standard": {
@@ -86,6 +89,8 @@
       "text",
       "lcovonly"
     ],
-    "collectCoverageFrom": ["index.js"]
+    "collectCoverageFrom": [
+      "index.js"
+    ]
   }
 }
