@@ -24,10 +24,10 @@ Then with a module bundler like [rollup](http://rollupjs.org/) or [webpack](http
 
 ```javascript
 // using ES6 modules
-import glam from 'rxhr'
+import rxhr from 'rxhr'
 
 // using CommonJS modules
-var glam = require('rxhr')
+var rxhr = require('rxhr')
 ```
 
 The [UMD](https://github.com/umdjs/umd) build is also available on [unpkg](https://unpkg.com):
@@ -40,6 +40,25 @@ You can find the library on `window.rhxr`.
 
 ## Usage
 
+```js
+import rxhr from 'rxhr'
+
+const req$ = rxhr({
+  method: 'get',
+  responseType: 'json',
+  url: 'https://jsonplaceholder.typicode.com/posts'
+})
+.subscribe(
+  res => res.json().forEach(e => console.log(e.title)),
+  err => console.log(err),
+  () => console.log('completed')
+)
+
+// abort request
+req$.unsubscribe()
+
+
+```
 
 ## Tests
 

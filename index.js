@@ -53,6 +53,7 @@ const rxhr = options => {
           }
           return response
         }
+
         const onReqLoad = () => {
           let response = buildResponse()
           if (response.ok) {
@@ -82,7 +83,9 @@ const rxhr = options => {
         // with credentials
         request.withCredentials = options.withCredentials === true
         // headers
-        for (let i in options.headers) { request.setRequestHeader(i, options.headers[i]) }
+        for (let i in options.headers) {
+          request.setRequestHeader(i, options.headers[i])
+        }
         // timeout in ms
         request.timeout = options.timeout
 
