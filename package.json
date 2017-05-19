@@ -1,0 +1,91 @@
+{
+  "name": "rxhr",
+  "amdName": "rxhr",
+  "version": "1.0.0-alpha.1",
+  "description": "Tiny Observable based HTTP client",
+  "jsnext:main": "index.js",
+  "module": "dist/rxhr.es.js",
+  "main": "dist/rxhr.cjs.js",
+  "umd:main": "dist/rxhr.umd.js",
+  "scripts": {
+    "bump": "standard-version",
+    "testonly": "jest --coverage",
+    "lint": "standard",
+    "format": "prettier --write --semi false '*.js' && standard --fix",
+    "test": "npm run lint && npm run testonly",
+    "build": "npm-run-all test clean rollup rollup:min size",
+    "clean": "rimraf dist",
+    "rollup": "rollup -c",
+    "rollup:min": "cross-env MINIFY=minify rollup -c",
+    "size": "echo \"Gzipped Size: $(cat dist/rxhr.umd.min.js | gzip-size)\"",
+    "release": "npm run build && npm run bump && git push --follow-tags origin master && npm publish"
+  },
+  "repository": "vesparny/rxhr",
+  "keywords": [
+    "xhr",
+    "http",
+    "ajax",
+    "observable",
+    "rxjs",
+    "reactive",
+    "request"
+  ],
+  "homepage": "https://github.com/vesparny/rxhr",
+  "authors": [
+    "Alessandro Arnodo <alessandro@arnodo.net>"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "index.js",
+    "index.spec.js"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.2",
+    "babel-preset-env": "^1.4.0",
+    "cross-env": "^5.0.0",
+    "gzip-size-cli": "^2.0.0",
+    "jest": "^20.0.3",
+    "npm-run-all": "^4.0.2",
+    "prettier": "^1.3.1",
+    "rimraf": "^2.5.2",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^1.0.1",
+    "standard": "^10.0.2",
+    "standard-version": "^4.0.0"
+  },
+  "dependencies": {
+    "symbol-observable": "^1.0.4"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "jest",
+      "expect",
+      "it",
+      "test",
+      "describe",
+      "Blob",
+      "XMLHttpRequest"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --semi false --single-quote",
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "jest": {
+    "coverageReporters": [
+      "json",
+      "text",
+      "lcovonly"
+    ],
+    "collectCoverageFrom": ["index.js"]
+  }
+}
