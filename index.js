@@ -74,6 +74,10 @@ const rxhr = options => {
           observer.error(response)
         }
 
+        const onReqProgress = evt => {
+          options.progressObserver.next(evt)
+        }
+
         request.open(
           options.method.toUpperCase(),
           buildUrl(options.url, options.params)
@@ -94,6 +98,10 @@ const rxhr = options => {
         request.onload = onReqLoad
         request.onerror = onReqError
         request.ontimeout = onReqTimeout
+        request.onprogress = options.progressObserver &&
+          options.progressObserver.next
+          ? onReqProgress
+          : ''
       } catch (err) {
         observer.error(err)
       }
