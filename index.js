@@ -98,10 +98,9 @@ const rxhr = options => {
         request.onload = onReqLoad
         request.onerror = onReqError
         request.ontimeout = onReqTimeout
-        request.onprogress = options.progressObserver &&
-          options.progressObserver.next
-          ? onReqProgress
-          : ''
+        if (options.progressObserver && options.progressObserver.next) {
+          request.onprogress = onReqProgress
+        }
       } catch (err) {
         observer.error(err)
       }
