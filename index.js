@@ -75,7 +75,9 @@ const rxhr = options => {
         }
 
         const onReqProgress = evt => {
-          options.progressObserver.next(evt)
+          typeof options.progressObserver[$$observable] === 'function'
+            ? options.progressObserver.next(evt)
+            : options.progressObserver(evt)
         }
 
         request.open(
@@ -98,7 +100,7 @@ const rxhr = options => {
         request.onload = onReqLoad
         request.onerror = onReqError
         request.ontimeout = onReqTimeout
-        if (options.progressObserver && options.progressObserver.next) {
+        if (options.progressObserver) {
           request.onprogress = onReqProgress
         }
       } catch (err) {
