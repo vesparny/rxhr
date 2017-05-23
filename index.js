@@ -102,6 +102,9 @@ const rxhr = options => {
         request.ontimeout = onReqTimeout
         if (options.progressObserver) {
           request.onprogress = onReqProgress
+          if (request.upload) {
+            request.upload.onprogress = onReqProgress
+          }
         }
       } catch (err) {
         observer.error(err)
