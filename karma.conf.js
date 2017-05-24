@@ -3,6 +3,12 @@ module.exports = function (config) {
     frameworks: ['mocha'],
     reporters: ['mocha', 'coverage-istanbul'],
     browsers: ['Chrome'],
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
     files: [
       'test/**/*.spec.js'
@@ -41,4 +47,8 @@ module.exports = function (config) {
       noInfo: true
     }
   })
+
+  if (process.env.TRAVIS) {
+    config.browsers = ['Chrome_travis_ci']
+  }
 }
