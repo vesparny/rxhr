@@ -6,15 +6,16 @@ import commonjs from 'rollup-plugin-commonjs'
 const minify = !!process.env.MINIFY
 
 export default {
-  entry: 'index.js',
+  entry: 'src/index.js',
   moduleName: 'rxhr',
   useStrict: false,
   sourceMap: minify,
-  plugins: [resolve({
-    jsnext: true,
-    main: true,
-    browser: true
-  }),
+  plugins: [
+    resolve({
+      jsnext: true,
+      main: true,
+      browser: true
+    }),
     commonjs(),
     babel({
       exclude: 'node_modules/**',
@@ -27,7 +28,9 @@ export default {
           }
         ]
       ]
-    }), minify ? uglify() : {}],
+    }),
+    minify ? uglify() : {}
+  ],
   targets: minify
     ? [
       {

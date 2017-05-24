@@ -10,10 +10,13 @@
   "scripts": {
     "precommit": "lint-staged",
     "bump": "standard-version",
-    "testonly": "jest --coverage",
+    "test:karma": "karma start --single-run && npm run stop-server",
+    "test:watch": "karma start",
+    "start-server": "PORT=8070 node test/support/server & echo $! > test-server.pid",
+    "stop-server": "if ps -p $(cat test-support-server.pid)> /dev/null; then kill -KILL $(cat test-support-server.pid); fi && rimraf test-server.pid",
     "lint": "standard",
     "format": "prettier --write --semi false '*.js' && standard --fix",
-    "test": "npm run lint && npm run testonly",
+    "test": "npm-run-all start-server test:karma",
     "build": "npm-run-all test clean rollup rollup:min size",
     "clean": "rimraf dist",
     "rollup": "rollup -c",
@@ -44,10 +47,26 @@
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.2",
+    "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.3",
     "cross-env": "^5.0.0",
+    "expect": "^1.20.2",
+    "express": "^4.15.3",
     "gzip-size-cli": "^2.0.0",
-    "jest": "^20.0.3",
+    "husky": "^0.13.3",
+    "istanbul-instrumenter-loader": "^2.0.0",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.3",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.3",
+    "lint-staged": "^3.4.2",
+    "mocha": "^3.4.1",
     "npm-run-all": "^4.0.2",
     "prettier": "^1.3.1",
     "rimraf": "^2.5.2",
@@ -57,20 +76,16 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-uglify": "^1.0.1",
     "standard": "^10.0.2",
-    "standard-version": "^4.0.0"
+    "standard-version": "^4.0.0",
+    "webpack": "^2.6.0"
   },
   "dependencies": {
-    "husky": "^0.13.3",
-    "lint-staged": "^3.4.2",
     "symbol-observable": "^1.0.4"
   },
   "standard": {
     "parser": "babel-eslint",
     "globals": [
-      "jest",
-      "expect",
       "it",
-      "test",
       "describe",
       "Blob",
       "XMLHttpRequest"
@@ -81,16 +96,6 @@
       "prettier --write --semi false --single-quote",
       "standard --fix",
       "git add"
-    ]
-  },
-  "jest": {
-    "coverageReporters": [
-      "json",
-      "text",
-      "lcovonly"
-    ],
-    "collectCoverageFrom": [
-      "index.js"
     ]
   }
 }
