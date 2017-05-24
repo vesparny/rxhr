@@ -2,6 +2,7 @@
 > A tiny Observable based HTTP client
 
 [![Travis](https://img.shields.io/travis/vesparny/rxhr.svg)](https://travis-ci.org/vesparny/rxhr)
+[![Code Coverage](https://img.shields.io/codecov/c/github/vesparny/rxhr.svg?style=flat-square)](https://codecov.io/github/vesparny/rxhr)
 [![David](https://img.shields.io/david/vesparny/rxhr.svg)](https://david-dm.org/vesparny/rxhr)
 [![npm](https://img.shields.io/npm/v/rxhr.svg)](https://www.npmjs.com/package/rxhr)
 [![npm](https://img.shields.io/npm/dm/rxhr.svg)](https://npm-stat.com/charts.html?package=rxhr&from=2017-05-19)
