@@ -74,6 +74,12 @@ const rxhr = options => {
           observer.error(response)
         }
 
+        const onReqProgress = evt => {
+          typeof options.progressObserver[$$observable] === 'function'
+            ? options.progressObserver.next(evt)
+            : options.progressObserver(evt)
+        }
+
         request.open(
           options.method.toUpperCase(),
           buildUrl(options.url, options.params)
@@ -94,6 +100,12 @@ const rxhr = options => {
         request.onload = onReqLoad
         request.onerror = onReqError
         request.ontimeout = onReqTimeout
+        if (options.progressObserver) {
+          request.onprogress = onReqProgress
+          if (request.upload) {
+            request.upload.onprogress = onReqProgress
+          }
+        }
       } catch (err) {
         observer.error(err)
       }
