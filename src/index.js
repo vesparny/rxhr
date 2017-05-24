@@ -1,4 +1,4 @@
-import $$observable from 'symbol-observable'
+const $$observable = require('symbol-observable')
 
 const encodeParams = params =>
   Object.keys(params)
@@ -121,4 +121,4 @@ const rxhr = options => {
   }
 }
 
-export default rxhr
+module.exports = rxhr

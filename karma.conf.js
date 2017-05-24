@@ -11,14 +11,10 @@ module.exports = function (config) {
       }
     },
 
-    files: [
-      'test/**/*.spec.js'
-      // 'src/**/*.js'
-    ],
+    files: ['test/**/*.spec.js'],
 
     preprocessors: {
       'test/**/*.spec.js': ['webpack', 'sourcemap']
-      // 'src/**/*js': ['webpack', 'sourcemap']
     },
 
     coverageIstanbulReporter: {
@@ -29,11 +25,6 @@ module.exports = function (config) {
     webpack: {
       module: {
         rules: [
-          {
-            test: /\.js?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader'
-          },
           {
             test: /\.js$/,
             exclude: /(node_modules|test)/,

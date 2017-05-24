@@ -1,6 +1,6 @@
-import expect from 'expect'
-import $$observable from 'symbol-observable'
-import rxhr from '../src'
+const expect = require('expect')
+const $$observable = require('symbol-observable')
+const rxhr = require('../src')
 const baseUrl = '//localhost:8070'
 
 describe('rxhr', () => {
