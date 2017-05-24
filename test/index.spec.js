@@ -14,11 +14,10 @@ describe('rxhr', () => {
     expect(typeof request[$$observable]()).toBe('object')
     const subscription = request.subscribe(
       res => {
-        console.log(res.json())
         done()
       },
       err => {
-        console.log(err.json().message)
+        console.log(err)
         done()
       },
       () => {

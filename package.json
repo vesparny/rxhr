@@ -13,7 +13,7 @@
     "test:karma": "karma start --single-run && npm run stop-server",
     "test:watch": "karma start",
     "start-server": "PORT=8070 node test/support/server & echo $! > test-server.pid",
-    "stop-server": "if ps -p $(cat test-support-server.pid)> /dev/null; then kill -KILL $(cat test-support-server.pid); fi && rimraf test-support-server.pid",
+    "stop-server": "if ps -p $(cat test-support-server.pid)> /dev/null; then kill -KILL $(cat test-support-server.pid); fi && rimraf test-server.pid",
     "lint": "standard",
     "format": "prettier --write --semi false '*.js' && standard --fix",
     "test": "npm-run-all start-server test:karma",

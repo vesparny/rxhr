@@ -3,6 +3,7 @@ module.exports = function (config) {
     frameworks: ['mocha'],
     reporters: ['mocha', 'coverage-istanbul'],
     browsers: ['Chrome'],
+
     customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',
@@ -42,7 +43,6 @@ module.exports = function (config) {
         ]
       }
     },
-
     webpackMiddleware: {
       noInfo: true
     }
