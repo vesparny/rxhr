@@ -14,7 +14,7 @@ module.exports = function (config) {
     files: ['test/**/*.spec.js'],
 
     preprocessors: {
-      'test/**/*.spec.js': ['webpack', 'sourcemap']
+      '**/*': ['webpack', 'sourcemap']
     },
 
     coverageIstanbulReporter: {
