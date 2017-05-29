@@ -27,6 +27,12 @@ module.exports = function (config) {
         rules: [
           {
             test: /\.js$/,
+            exclude: /node_modules/,
+            enforce: 'pre',
+            loader: 'babel-loader'
+          },
+          {
+            test: /\.js$/,
             exclude: /(node_modules|test)/,
             enforce: 'post',
             loader: 'istanbul-instrumenter-loader'
