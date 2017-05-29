@@ -1,27 +1,56 @@
 module.exports = function (config) {
   var customLaunchers = {
-    sl_chrome: {
+    SL_Chrome: {
       base: 'SauceLabs',
       browserName: 'chrome',
-      platform: 'Windows 7',
-      version: '35'
+      version: '51'
     },
-    sl_firefox: {
+    SL_Firefox: {
       base: 'SauceLabs',
       browserName: 'firefox',
-      version: '30'
+      version: '47'
     },
-    sl_ios_safari: {
+    SL_Safari_8: {
       base: 'SauceLabs',
-      browserName: 'iphone',
-      platform: 'OS X 10.9',
-      version: '7.1'
+      browserName: 'safari',
+      platform: 'OS X 10.10',
+      version: '8'
     },
-    sl_ie_11: {
+    SL_Safari_9: {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.11',
+      version: '9'
+    },
+    SL_IE_9: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 2008',
+      version: '9'
+    },
+    SL_IE_10: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 2012',
+      version: '10'
+    },
+    SL_IE_11: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
       platform: 'Windows 8.1',
       version: '11'
+    },
+    SL_EDGE: {
+      base: 'SauceLabs',
+      browserName: 'microsoftedge',
+      platform: 'Windows 10',
+      version: '14'
+    },
+    SL_iOS: {
+      base: 'SauceLabs',
+      browserName: 'iphone',
+      platform: 'OS X 10.10',
+      version: '8.1'
     }
   }
 
@@ -70,7 +99,12 @@ module.exports = function (config) {
       noInfo: true
     },
     sauceLabs: {
-      testName: 'Web App Unit Tests'
+      build: 'TRAVIS #' +
+        process.env.TRAVIS_BUILD_NUMBER +
+        ' (' +
+        process.env.TRAVIS_BUILD_ID +
+        ')',
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
     },
     customLaunchers: customLaunchers,
     browsers: Object.keys(customLaunchers),
