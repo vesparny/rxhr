@@ -19,7 +19,8 @@ module.exports = function (config) {
 
     coverageIstanbulReporter: {
       dir: 'coverage',
-      reports: ['html', 'lcovonly', 'text-summary']
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true
     },
 
     webpack: {
@@ -28,13 +29,12 @@ module.exports = function (config) {
           {
             test: /\.js$/,
             exclude: /node_modules/,
-            enforce: 'pre',
             loader: 'babel-loader'
           },
           {
             test: /\.js$/,
             exclude: /(node_modules|test)/,
-            enforce: 'post',
+            enforce: 'pre',
             loader: 'istanbul-instrumenter-loader'
           }
         ]
