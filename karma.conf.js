@@ -14,12 +14,13 @@ module.exports = function (config) {
     files: ['test/**/*.spec.js'],
 
     preprocessors: {
-      'test/**/*.spec.js': ['webpack', 'sourcemap']
+      '**/*': ['webpack', 'sourcemap']
     },
 
     coverageIstanbulReporter: {
       dir: 'coverage',
-      reports: ['html', 'lcovonly', 'text-summary']
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true
     },
 
     webpack: {
@@ -27,16 +28,25 @@ module.exports = function (config) {
         rules: [
           {
             test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+          },
+          {
+            test: /\.js$/,
             exclude: /(node_modules|test)/,
-            enforce: 'post',
-            loader: 'istanbul-instrumenter-loader'
+            enforce: 'pre',
+            loader: 'istanbul-instrumenter-loader',
+            query: {
+              esModules: true
+            }
           }
         ]
       }
     },
     webpackMiddleware: {
       noInfo: true
-    }
+    },
+    singleRun: true
   })
 
   if (process.env.TRAVIS) {
